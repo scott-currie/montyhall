@@ -1,17 +1,19 @@
 import random
 
 def main():
-    trials = int(input().strip())
-    wins = 0
+    trials = int(input('How many trials?').strip())
+    sw_wins, st_wins = 0, 0
     for t in range(trials):
-        wins += play_game(True)
-    print('switching % wins = ', wins / trials)
-    wins = 0
-    for t in range(trials):
-        wins += play_game(False)
-    print('standing % wins = ', wins / trials)
+        sw_wins += play_game(True)
+        st_wins += play_game(False)
+    print('switching % wins = ', sw_wins / trials)
+    print('standing % wins = ', st_wins / trials)
 
 def play_game(switch):
+    '''
+    :param switch: Should player switch his choice?
+    :return: 1 if player won, else 0
+    '''
     # Make prizes then shuffle. Doors are referenced by index.
     prizes = [0, 0, 1]
     random.shuffle(prizes)
@@ -25,7 +27,6 @@ def play_game(switch):
 
     # If player is programmed to switch doors.
     if switch:
-
         # This expression happens to return a single-item list that I'm slicing at [0]. p_choice becomes the door that
         # he didn't originally choose and that Monty hasn't eliminated.
         p_choice = [c for c in range(len(prizes)) if c != p_choice and c != elim][0]
@@ -34,7 +35,6 @@ def play_game(switch):
         return 1
     else:
         return 0
-
 
 if __name__ == "__main__":
     main()
